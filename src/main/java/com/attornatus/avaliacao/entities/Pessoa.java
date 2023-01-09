@@ -1,27 +1,40 @@
 package com.attornatus.avaliacao.entities;
 
 import java.io.Serializable;
-// import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
-	// private Date dataDeNascimento;
 	private String dataDeNascimento;
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(String nome, String dataDeNascimento) {
+	public Pessoa(Long id, String nome, String dataDeNascimento) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -42,7 +55,7 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -54,7 +67,7 @@ public class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(id, other.id);
 	}
 
 }

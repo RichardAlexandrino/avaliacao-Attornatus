@@ -13,7 +13,7 @@ public class PessoaResource {
 
 	@GetMapping
 	public ResponseEntity<Pessoa> findAll() {
-		Pessoa pessoa1 = new Pessoa("Maria", "13/08/1996");
+		Pessoa pessoa1 = new Pessoa(1L, "Maria", "13/08/1996");
 		return ResponseEntity.ok().body(pessoa1);
 	}
 }
