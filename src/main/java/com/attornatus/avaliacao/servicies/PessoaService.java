@@ -23,4 +23,9 @@ public class PessoaService {
 		Optional <Pessoa> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Pessoa create(Pessoa obj) {
+		return repository.save(obj);
+	}
+	
 }

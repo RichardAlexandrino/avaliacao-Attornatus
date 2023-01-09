@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +27,6 @@ public class Pessoa implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataDeNascimento;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "pessoa")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
