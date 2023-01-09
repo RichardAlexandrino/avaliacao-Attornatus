@@ -28,4 +28,15 @@ public class PessoaService {
 		return repository.save(obj);
 	}
 	
+	public Pessoa edit(Long id, Pessoa obj) {
+		Pessoa entity = repository.getReferenceById(id);
+		editData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void editData(Pessoa entity, Pessoa obj) {
+		entity.setNome(obj.getNome());
+		entity.setDataDeNascimento(obj.getDataDeNascimento());
+	}
+	
 }
