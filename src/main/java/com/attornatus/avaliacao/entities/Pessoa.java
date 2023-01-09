@@ -1,12 +1,19 @@
 package com.attornatus.avaliacao.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -17,12 +24,18 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String dataDeNascimento;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant dataDeNascimento;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pessoa")
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, String nome, String dataDeNascimento) {
+	public Pessoa(Long id, String nome, Instant dataDeNascimento) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -45,12 +58,16 @@ public class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getDataDeNascimento() {
+	public Instant getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(Instant dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
 	@Override
