@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.attornatus.avaliacao.entities.Pessoa;
 import com.attornatus.avaliacao.repositories.PessoaRepository;
+import com.attornatus.avaliacao.servicies.exceptions.ResourceNotFoundException;
 
 @Service
 public class PessoaService {
@@ -21,7 +22,7 @@ public class PessoaService {
 	
 	public Pessoa findById(Long id) {
 		Optional <Pessoa> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Pessoa create(Pessoa obj) {
