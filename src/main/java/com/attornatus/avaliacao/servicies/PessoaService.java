@@ -10,6 +10,8 @@ import com.attornatus.avaliacao.entities.Pessoa;
 import com.attornatus.avaliacao.repositories.PessoaRepository;
 import com.attornatus.avaliacao.servicies.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PessoaService {
 
@@ -30,9 +32,13 @@ public class PessoaService {
 	}
 	
 	public Pessoa edit(Long id, Pessoa obj) {
-		Pessoa entity = repository.getReferenceById(id);
-		editData(entity, obj);
-		return repository.save(entity);
+		try {
+			Pessoa entity = repository.getReferenceById(id);
+			editData(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void editData(Pessoa entity, Pessoa obj) {
