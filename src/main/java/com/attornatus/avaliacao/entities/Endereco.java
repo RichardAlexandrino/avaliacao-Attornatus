@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Classe resposável pelos dados de endereço
+ * 
+ * @author Richard Alexandrino
+ *
+ */
 @Entity
 public class Endereco implements Serializable {
 
@@ -23,6 +30,10 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String cep;
 	private Integer numero;
+	private String cidade;
+	
+	@Column(nullable = false)
+	private Boolean enderecoPrincipal = false;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -32,13 +43,15 @@ public class Endereco implements Serializable {
 	public Endereco() {
 	}
 	
-	public Endereco(Long id, String logradouro, String cep, Integer numero, Pessoa pessoa) {
+	public Endereco(Long id, String logradouro, String cep, Integer numero, String cidade, Pessoa pessoa, Boolean enderecoPrincipal) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
+		this.cidade = cidade;
 		this.pessoa = pessoa;
+		this.enderecoPrincipal = enderecoPrincipal;
 	}
 
 	public Long getId() {
@@ -79,6 +92,22 @@ public class Endereco implements Serializable {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public Boolean getEnderecoPrincipal() {
+		return enderecoPrincipal;
+	}
+
+	public void setEnderecoPrincipal(Boolean enderecoPrincipal) {
+		this.enderecoPrincipal = enderecoPrincipal;
 	}
 
 	@Override

@@ -24,18 +24,35 @@ public class PessoaResource {
 	@Autowired
 	private PessoaService service;
 	
+	/**
+	 * Lista as pessoas
+	 * 
+	 * @return {link ResponseEntity<List<Pessoa>>}
+	 */
 	@GetMapping
 	public ResponseEntity<List<Pessoa>> findAll() {
 		List<Pessoa> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	/**
+	 * Verifica a pessoa pelo seu código de identificação
+	 * 
+	 * @param id
+	 * @return {link ResponseEntity<<Pessoa>>}
+	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Pessoa> findById(@PathVariable Long id) {
 		Pessoa obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	/**
+	 * Implementar um novo cadastro de pessoa
+	 * 
+	 * @param obj
+	 * @return {link ResponseEntity<<Pessoa>>}
+	 */
 	@PostMapping
 	public ResponseEntity<Pessoa> create(@RequestBody Pessoa obj) {
 		obj = service.create(obj);
@@ -44,6 +61,13 @@ public class PessoaResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
+	/**
+	 * Atualizar dados um pessoa
+	 * 
+	 * @param id
+	 * @param obj
+	 * @return {link ResponseEntity<<Pessoa>>}
+	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Pessoa> edit(@PathVariable Long id, @RequestBody Pessoa obj) {
 		obj = service.edit(id, obj);

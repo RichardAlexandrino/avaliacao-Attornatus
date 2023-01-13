@@ -23,4 +23,5 @@ public class EnderecoService {
 		Optional <Endereco> obj = repository.findById(id);
 		return obj.get();
 	}
+	
 }
